@@ -1,0 +1,1 @@
+class NadoLivreError(Exception): pass
