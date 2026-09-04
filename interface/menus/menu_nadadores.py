@@ -1,12 +1,12 @@
+from servicos.nadador_service import NadadorService
+from excecoes.nado_livre_error import NadoLivreError
+
 class MenuNadadores:
+    def __init__(self, nadador_service: NadadorService) -> None:
+        self.nadador_service = nadador_service
 
-    def __init__(self, sistema):
-        self.sistema = sistema
-
-    def executar(self):
-
+    def executar(self) -> None:
         while True:
-
             print("\n===== NADADORES =====")
             print("1 - Cadastrar nadador")
             print("2 - Listar nadadores")
@@ -15,35 +15,24 @@ class MenuNadadores:
             opcao = input("Opção: ")
 
             if opcao == "1":
-
                 nome = input("Nome: ")
                 matricula = input("Matrícula: ")
-
-                self.sistema.cadastrar_nadador(
-                    nome,
-                    matricula
-                )
-
-                print("Nadador cadastrado.")
+                try:
+                    self.nadador_service.cadastrar(nome, matricula)
+                    print("✅ Nadador cadastrado com sucesso.")
+                except NadoLivreError as e:
+                    print(f"⚠️ Erro: {e}")
 
             elif opcao == "2":
-
-                if len(self.sistema.nadadores) == 0:
+                nadadores = self.nadador_service.listar()
+                if not nadadores:
                     print("Nenhum nadador cadastrado.")
                 else:
-
                     print("\n--- NADADORES ---")
-
-                    for nadador in self.sistema.nadadores:
-                        print(
-                            "Nome:",
-                            nadador.nome,
-                            "| Matrícula:",
-                            nadador.matricula
-                        )
+                    for nadador in nadadores:
+                        print(f"Nome: {nadador.nome} | Matrícula: {nadador.matricula}")
 
             elif opcao == "0":
                 break
-
             else:
                 print("Opção inválida.")
