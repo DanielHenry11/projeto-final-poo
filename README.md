@@ -3,9 +3,9 @@
 ## 👥 Identificação da Equipe
 - **Nome do Projeto:** Sistema de Controle e Gestão de Toalhas (SwimTowel Manager)
 - **Integrantes da Equipe:**
-  - [Daniel Henry]
-  - [Luiz Guilherme Costa]
-  - [Igor Gabriel Militão]
+  - Daniel Henry
+  - Luiz Guilherme Costa
+  - Igor Gabriel Militão
 
 ---
 
@@ -14,7 +14,7 @@
 ### 1. Contexto e Problema
 Em escolas de natação com grande fluxo diário de alunos, a gestão do enxoval de toalhas é um desafio operacional. A perda de itens, o descontrole sobre quem retirou ou devolveu, a falta de visibilidade da quantidade de toalhas limpas versus em higienização e a ausência de um histórico confiável geram prejuízos financeiros e atrasos no atendimento da recepção.
 
-### 2. Objetivoa
+### 2. Objetivo
 O objetivo do sistema é automatizar e centralizar o controle de empréstimo, devolução e estoque de toalhas da escola de natação. Desenvolvido em **Python** utilizando o paradigma de **Programação Orientada a Objetos (POO)** e integrado a um **banco de dados relacional**, o software garante rastreabilidade total das operações realizadas por atendentes e alunos.
 
 ### 3. Cenário de Utilização
