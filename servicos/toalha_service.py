@@ -1,18 +1,24 @@
 from typing import List
-from nado_livre import NadoLivre
+from sqlalchemy import select
 from modelos.toalha import Toalha
+from persistencia.banco import get_session
 
 class ToalhaService:
-    def __init__(self, app: NadoLivre) -> None:
+    def __init__(self, app=None) -> None:
         self.__app = app
 
     def cadastrar(self, codigo: str) -> Toalha:
         toalha = Toalha(codigo)
-        self.__app.toalhas.append(toalha)
+        with get_session() as session:
+            session.add(toalha)
+            session.commit()
+            session.refresh(toalha)
         return toalha
 
     def listar(self) -> List[Toalha]:
-        return self.__app.toalhas
+        with get_session() as session:
+            return list(session.scalars(select(Toalha)).all())
 
     def listar_disponiveis(self) -> List[Toalha]:
-        return [t for t in self.__app.toalhas if t.disponivel]
+        with get_session() as session:
+            return list(session.scalars(select(Toalha).where(Toalha.disponivel == True)).all())

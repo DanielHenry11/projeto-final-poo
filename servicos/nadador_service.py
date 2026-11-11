@@ -1,15 +1,20 @@
 from typing import List
-from nado_livre import NadoLivre
+from sqlalchemy import select
 from modelos.nadador import Nadador
+from persistencia.banco import get_session
 
 class NadadorService:
-    def __init__(self, app: NadoLivre) -> None:
+    def __init__(self, app=None) -> None:
         self.__app = app
 
     def cadastrar(self, nome: str, matricula: str) -> Nadador:
         nadador = Nadador(nome, matricula)
-        self.__app.nadadores.append(nadador)
+        with get_session() as session:
+            session.add(nadador)
+            session.commit()
+            session.refresh(nadador)
         return nadador
 
     def listar(self) -> List[Nadador]:
-        return self.__app.nadadores
+        with get_session() as session:
+            return list(session.scalars(select(Nadador)).all())
